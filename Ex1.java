@@ -13,11 +13,11 @@ import java.util.Scanner;
  * You should implement the following static functions:
  */
 public class Ex1 {
-    public static int charToInt(char digits) {
+    public static int charToInt(char z) {
         int ans = -1;
         char[] arr = {'1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G'};
         for (int i = 0; i < arr.length; i++) {
-            if (arr[i] == digits) {
+            if (arr[i] == z) {
                 ans = i;
             }
 
@@ -26,24 +26,44 @@ public class Ex1 {
     }
 
     /**
-     *
      * Convert the given number (num) to a decimal representation (as int).
      * If the given number is not in a valid format returns -1.
+     *
      * @param num a String representing a number in basis [2,16]
      * @return
      */
     public static int number2Int(String num) {
-        int ans = -1;
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter your first string number:");
+        int ans = 0;
+        int base = 10;
+        for (int i = 0; i < num.length(); i++) { //stop in b
+            char currentChar = num.charAt(i);
+            int value = charToInt(currentChar);
+            if (value == -1 || value >= base) {
+            }
 
+            System.out.println("Invalid character " + currentChar + " for base " + base);
+            {
+                return -1;
+            }
+            ans = ans * base + value;
 
-
-
-
-
-        return ans;
+            return ans;
+        }
     }
+
+
+
+//        Scanner sc = new Scanner(System.in);
+//        System.out.println("Enter your first string number:");
+//        if (String == isNumber()){
+//            System.out.println("num1="  "is: True", "value:" );
+//        }
+//        if(number2Int()==-1);
+//        System.out.println("num2="   "is: False", "value:"  );
+
+
+
+
     /**
      * This static function checks if the given String (g) is in a valid "number" format.
      * @param a a String representing a number
@@ -55,9 +75,9 @@ public class Ex1 {
         if (charToInt(base)==-1){return false;}
         String numvalue = a.substring(0, a.indexOf('b'));
 
-        for (char digits: numvalue.toCharArray()) {
-            if (charToInt(digits)==-1){return false;}
-            if (charToInt(digits)>=charToInt(base)){return false;}
+        for (char z: numvalue.toCharArray()) {
+            if (charToInt(z)==-1){return false;}
+            if (charToInt(z)>=charToInt(base)){return false;}
 
         }
 
