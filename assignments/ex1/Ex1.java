@@ -25,10 +25,6 @@ public class Ex1 {
         return ans;
     }
 
-    public static int convertBase(String num) {
-        int base = Integer.parseInt(num.substring(num.indexOf("b" + 1), num.length() - 1));
-        return base;
-    }
 
     /**
      * Convert the given number (num) to a decimal representation (as int).
@@ -39,79 +35,98 @@ public class Ex1 {
      */
     public static int number2Int(String num) {
         int ans = 0;
-        StringBuilder numBuilder = new StringBuilder(num);
-        numBuilder.reverse(); // the code needs to read it in the opposite way (right to left)
-        int base = convertBase(num);
-        for (int i = 0; i < num.length(); i++) {
-            char currentChar = num.charAt(i);
-            int value = charToInt(currentChar);
-            if (value == -1 || value >= base) {
-                System.out.println("Invalid character " + currentChar + " for base " + base);
-                {
-                    return -1;
-                }
+        if (num.contains("b")) {
+            String[] parts = num.split("b");
+            if (parts.length != 2) {
+                return -1;
             }
-            ans = ans + charToInt(currentChar) * (int) Math.pow(base, i);
+            int base = Integer.parseInt(parts[1]);
+            String numWithoutBase = parts[0];
+            StringBuilder numBuilder = new StringBuilder(numWithoutBase);
+            numBuilder.reverse();
+            String reversedNum = numBuilder.toString();
+            for (int i = 0; i < reversedNum.length(); i++) {
+                char currentChar = reversedNum.charAt(i);
+                int value = charToInt(currentChar);
+                if (value == -1 || value >= base) {
+                    return -1;
+                } else if (!num.contains("b")) {
+                    System.out.println(parts[0]);
+                }
+                ans = ans + charToInt(currentChar) * (int) Math.pow(base, i);
+            }
+            return ans;
         }
         return ans;
     }
+/**
+ * This static function checks if the given String (g) is in a valid "number" format.
+ *
+ * @param a a String representing a number
+ * @return true iff the given String is in a number format
+ */
+public static boolean isNumber(String a) {
+    String chars = "23456789ABCDEFG";
+    String chars2 = "0123456789";
+    int lastB = a.lastIndexOf('b');
+    boolean foundB = false;
+    boolean ans = true;
+    int count = 0;
 
-    /**
-     * This static function checks if the given String (g) is in a valid "number" format.
-     *
-     * @param a a String representing a number
-     * @return true iff the given String is in a number format
-     */
-    public static boolean isNumber(String a) {
-        String chars = "0123456789ABCDEFG";
-        String nums = "0123456789";
-        boolean ans = true;
-        if ((a == null) || a.isEmpty() || a.equals(" ")) {
-            ans = false;
+    for (int i = 0; i < a.length(); i++) {
+        if (a.charAt(i) == 'b') {
+            count++;
         }
-        if (!a.contains("b")){
-            a +=  "bA";
-        }
-        int indexOfB = a.indexOf('b')+1;
-        char base;
-        if (indexOfB != -1) {
-            base = a.charAt(indexOfB + 1);
-        }
-        if (charToInt(base) == -1) {
+        if (count > 1) {
             return false;
         }
-        for (int i = 0; i < nums.length(); i++) {
-            char ch = a.charAt(i);
-            if (nums.indexOf(Character.toUpperCase(ch)) == -1) {
-                return false;
-            }
-        }
-        Character.isLowerCase(base);
-        if (base >= 'a' && base <= 'f') {
+    }
+    if ((a == null) || a.isEmpty() || a.equals(" ")) {
+        ans = false;
+    }
+    int baseInt;
+    if (a.length() == 1) {
+        return chars2.contains(a);
+    }
+    if (count == 1 && lastB == a.length() - 2) {
+        String[] arr = a.split("b");
+        String base = arr[1];
+        String num = arr[0];
+        if (arr[0].isEmpty()) {
             return false;
         }
 
-        String numvalue = a.substring(0, a.indexOf('b'));
-        for (char z : numvalue.toCharArray()) {
-            if (charToInt(z) == -1) {
-                return false;
+        if (chars.contains(base)) {
+            if (chars2.contains(base)) {
+                baseInt = Integer.parseInt(base);
+            } else {
+                baseInt = Integer.parseInt(String.valueOf(base.charAt(0) - 55));
             }
-            if (charToInt(z) >= charToInt(base)) {
-                return false;
+            for (char c : num.toCharArray()) {
+                int digitalValue = Character.isDigit(c)
+                        ? c - '0'
+                        : c - 'A' + 10;
+                if (digitalValue < 0 || digitalValue >= baseInt) {
+                    return false;
+                }
             }
+        } else {
+            return false;
         }
-        int count = 0;
-        boolean foundB = false;
-        for (char b : numvalue.toCharArray()) {
-            if (b == 'b') {
-                count++;
-            }
-            if (count > 1) {
+    } else if (count == 0) {
+        for (char c : a.toCharArray()) {
+            int digitalValue = Character.isDigit(c)
+                    ? c - '0'
+                    : c - 'A' + 10;
+            if (digitalValue < 0 || digitalValue >= 10) {
                 return false;
             }
-        }
 
-        return ans;
+
+        }
+    }
+
+    return ans;
 }
 
 /**
@@ -156,9 +171,9 @@ public static String int2Number(int num, int base) {
  */
 public static boolean equals(String n1, String n2) {
     boolean ans = true;
-    String first = n1;
-    String second = n2;
-    if (first.equals(second)) {
+    int first = number2Int(n1);
+    int second = number2Int(n2);
+    if (first == second) {
         return ans;
     } else {
         return false;
@@ -176,9 +191,8 @@ public static boolean equals(String n1, String n2) {
  */
 public static int maxIndex(String[] arr) {
     int ans = 0;
-    // add your code here
 
-    ////////////////////
+
     return ans;
 }
 }
