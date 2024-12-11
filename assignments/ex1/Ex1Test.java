@@ -1,9 +1,12 @@
+package assignments.ex1;
+
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * This JUnit class represents a very partial test class for Ex1.
+ * This JUnit class represents a very partial test class for assignments.ex1.Ex1.
  * Make sure you complete all the needed JUnits
  */
 public class Ex1Test {
@@ -17,7 +20,7 @@ public class Ex1Test {
         s2 = Ex1.int2Number(v,2);
         int v2 = Ex1.number2Int(s2);
         assertEquals(v,v2);
-        assertTrue(Ex1.equals(s10,s2));
+        Assertions.assertTrue(Ex1.equals(s10,s2));
     }
 
     @Test
