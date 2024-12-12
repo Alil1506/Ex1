@@ -20,12 +20,12 @@ public class Ex1Main {
             num1 = sc.next();
 
 
-            if (num1.equals(quit)) {
+            if (num1.equals(quit)) {  // Check if num1 is "quit" and exit the program if true
                 System.out.println("Quitting the program...");
-                break;
+                break;  // Exit the loop if quit is entered
             }
 
-            boolean isValidNum1 = Ex1.isNumber(num1);
+            boolean isValidNum1 = Ex1.isNumber(num1);// If num1 is valid, continue to num2, otherwise show an error and restart the loop
             int valueNum1 = Ex1.number2Int(num1);
             if (isValidNum1 && valueNum1 != -1) {
                 System.out.println("num1= " + num1 + " is number: true , value: " + valueNum1);
@@ -36,9 +36,9 @@ public class Ex1Main {
                     System.out.print("Enter a string as number#2 (or \"quit\" to end the program): ");
                     num2 = sc.nextLine();
 
-                    if (num2.equals(quit)) {
+                    if (num2.equals(quit)) {// Check if num2 is "quit" and exit the program if true
                         System.out.println("Quitting the program...");
-                        break;
+                        break;// Exit the loop if quit is entered
                     }
 
 
@@ -56,16 +56,16 @@ public class Ex1Main {
                             continue;
                         }
 
-                        int sum = valueNum1 + valueNum2;
+                        int sum = valueNum1 + valueNum2; // Sum the values and convert the result to the new base
                         String sumInBase = Ex1.int2Number(sum, base);
                         System.out.println(num1 + " + " + num2 + " = " + sumInBase);
 
-                        int product = valueNum1 * valueNum2;
+                        int product = valueNum1 * valueNum2;// Multiply the values and convert the result to the new base
                         String productInBase = Ex1.int2Number(product, base);
                         System.out.println(num1 + " * " + num2 + " = " + productInBase);
 
                         String[] numbers = {num1, num2, sumInBase, productInBase};
-                        int maxIndex = Ex1.maxIndex(numbers);
+                        int maxIndex = Ex1.maxIndex(numbers); //Find max value
                         String maxNumber = numbers[maxIndex];
                         System.out.println("Max number over [" + String.join(",", numbers) + "] is: " + maxNumber);
 
@@ -73,7 +73,7 @@ public class Ex1Main {
                     } else {
                         System.out.println("ERR: " + num2 + " is in the wrong format!");
                         System.out.println("Returning to num1...");
-                        break;
+                        break;// Go back to num1 in case of invalid input
                     }
                 }
 

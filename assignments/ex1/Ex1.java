@@ -12,7 +12,7 @@ package assignments.ex1;
  * “b2”, “0b1”, “123b”, “1234b11”, “3b3”, “-3b5”, “3 b4”, “GbG”, "", null,
  * You should implement the following static functions:
  */
-public class Ex1 {
+public class Ex1 { //Converts a character to its corresponding integer value.
     public static int charToInt(char z) {
         int ans = -1;
         char[] arr = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G'};
@@ -33,26 +33,26 @@ public class Ex1 {
      * @param num a String representing a number in basis [2,16]
      * @return
      */
-    public static int number2Int(String num) {
+    public static int number2Int(String num) {//Converts a string representing a number in base [2,16] to an integer.
         int ans = 0;
         if (num.contains("b")) {
-            String[] parts = num.split("b");
+            String[] parts = num.split("b");// Split the input into two parts
             if (parts.length != 2) {
-                return -1;
+                return -1; //retuen -1 if invalid
             }
-            int base;
+            int base;// the base part after the 'b'
             String baseString = parts[1].toUpperCase();
             if (baseString.length() == 1) {
                 base = Character.digit(baseString.charAt(0), 16);
             } else {
                 return -1;
             }
-            if (base < 2 || base > 16) {
+            if (base < 2 || base > 16) {// Base should be between 2 and 16
                 return -1;
             }
-            String numWithoutBase = parts[0];
+            String numWithoutBase = parts[0]; //the number pert before 'b'
             StringBuilder numBuilder = new StringBuilder(numWithoutBase);
-            numBuilder.reverse();
+            numBuilder.reverse();// Reverse the number part
             String reversedNum = numBuilder.toString();
             for (int i = 0; i < reversedNum.length(); i++) {
                 char currentChar = reversedNum.charAt(i);
@@ -85,7 +85,7 @@ public class Ex1 {
      * @param a a String representing a number
      * @return true iff the given String is in a number format
      */
-    public static boolean isNumber(String a) {
+    public static boolean isNumber(String a) {//Checks if a string is a valid number in base [2,16].
         String chars = "23456789ABCDEFG";
         String chars2 = "0123456789";
         int lastB = a.lastIndexOf('b');
@@ -97,7 +97,7 @@ public class Ex1 {
             if (a.charAt(i) == 'b') {
                 count++;
             }
-            if (count > 1) {
+            if (count > 1) { //there can't be more than  ONE 'b'
                 return false;
             }
         }
@@ -158,13 +158,13 @@ public class Ex1 {
      * @param base the basis [2,16]
      * @return a String representing a number (in base) equals to num, or an empty String (in case of wrong input).
      */
-    public static String int2Number(int num, int base) {
+    public static String int2Number(int num, int base) { //Converts an integer to a string in a specified base [2,16].
         String ans = "";
-        if (base < 2 || base > 16) {
+        if (base < 2 || base > 16) {// only 2-9 and A-G are allowed
             return "";
         }
 
-        if (num == 0) {
+        if (num == 0) { // Handle special case where the number is 0
             return "0b" + (base <= 9 ? base : (char)('A' + base - 10));
         }
 
@@ -172,11 +172,11 @@ public class Ex1 {
 
         StringBuilder result = new StringBuilder();
 
-        while (num > 0) {
+        while (num > 0) {// Convert the number to the given base
             result.insert(0, digits[num % base]);
             num /= base;
         }
-        String baseStr;
+        String baseStr;// Determine the correct base representation
         if (base <= 9) {
             baseStr = Integer.toString(base);
         } else {
@@ -194,7 +194,7 @@ public class Ex1 {
      * @param n2 second number
      * @return true iff the two numbers have the same values.
      */
-    public static boolean equals(String n1, String n2) {
+    public static boolean equals(String n1, String n2) {//Compares two numbers (in string form) and checks if they are equal.
         boolean ans = true;
         int first = number2Int(n1);
         int second = number2Int(n2);
@@ -214,7 +214,7 @@ public class Ex1 {
      * @param arr an array of numbers
      * @return the index in the array in with the largest number (in value).
      */
-    public static int maxIndex(String[] arr) {
+    public static int maxIndex(String[] arr) {//Finds the index of the largest number in an array of number strings
         int max = -1;
         int maxIndex = -1;
         for (int i = 0; i < arr.length; i++) {
