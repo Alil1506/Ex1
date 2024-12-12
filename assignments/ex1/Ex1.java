@@ -67,6 +67,14 @@ public class Ex1 {
             }
             return ans;
         }
+        for (int i = 0; i < num.length(); i++) {
+            if (!Character.isDigit(num.charAt(i))) {
+                return -1;
+            }
+        }
+
+        ans = Integer.parseInt(num);
+
         return ans;
 
     }
@@ -152,24 +160,30 @@ public class Ex1 {
      */
     public static String int2Number(int num, int base) {
         String ans = "";
-        if (num < 0 || base < 2 || base > 16) {
+        if (base < 2 || base > 16) {
             return "";
         }
+
         if (num == 0) {
-            return "0";
+            return "0b" + (base <= 9 ? base : (char)('A' + base - 10));
         }
 
         char[] digits = "0123456789ABCDEF".toCharArray();
 
         StringBuilder result = new StringBuilder();
 
-
-        while (num > 0) { //This loop repeatedly divide the number num by the given base and collect the remainder.
-            result.insert(0, digits[num % base]); //
+        while (num > 0) {
+            result.insert(0, digits[num % base]);
             num /= base;
         }
+        String baseStr;
+        if (base <= 9) {
+            baseStr = Integer.toString(base);
+        } else {
+            baseStr = String.valueOf((char)('A' + base - 10));
+        }
 
-        return result+"b"+base;
+        return result + "b" + baseStr;
     }
 
 
@@ -201,21 +215,16 @@ public class Ex1 {
      * @return the index in the array in with the largest number (in value).
      */
     public static int maxIndex(String[] arr) {
-        int maxValue = Integer.MIN_VALUE;
+        int max = -1;
         int maxIndex = -1;
         for (int i = 0; i < arr.length; i++) {
-
-            int currentValue = Integer.parseInt(arr[i]);
-            if (currentValue > maxValue) {
-                maxValue = currentValue;
-
+            int value = Ex1.number2Int(arr[i]);
+            if (value != -1 && value > max ) {
+                max = value;
                 maxIndex = i;
             }
         }
-        return maxIndex;
-    }
 
-    public static int MaxIndex(String[] arr2) {
-        return  0;
+            return maxIndex;
+        }
     }
-}
