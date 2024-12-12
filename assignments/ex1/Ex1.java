@@ -40,24 +40,35 @@ public class Ex1 {
             if (parts.length != 2) {
                 return -1;
             }
-            int base = Integer.parseInt(parts[1]);
-            String numWithoutBase = parts[0];
-            StringBuilder numBuilder = new StringBuilder(numWithoutBase);
-            numBuilder.reverse();
-            String reversedNum = numBuilder.toString();
-            for (int i = 0; i < reversedNum.length(); i++) {
-                char currentChar = reversedNum.charAt(i);
-                int value = charToInt(currentChar);
-                if (value == -1 || value >= base) {
-                    return -1;
-                } else if (!num.contains("b")) {
-                    System.out.println(parts[0]);
+            int base;
+            String baseString = parts[1].toUpperCase();
+            if (baseString.length() == 1) {
+                base = Character.digit(baseString.charAt(0), 16);
+            } else {
+                return -1;
+            }
+            if (base < 2 || base > 16) {
+                return -1;
                 }
-                ans = ans + charToInt(currentChar) * (int) Math.pow(base, i);
+                String numWithoutBase = parts[0];
+                StringBuilder numBuilder = new StringBuilder(numWithoutBase);
+                numBuilder.reverse();
+                String reversedNum = numBuilder.toString();
+                for (int i = 0; i < reversedNum.length(); i++) {
+                    char currentChar = reversedNum.charAt(i);
+                    int value = charToInt(currentChar);
+                    if (value == -1 || value >= base) {
+                        return -1;
+                    } else if (!num.contains("b")) {
+                        return ans;
+                    }
+
+                    ans = ans + charToInt(currentChar) * (int) Math.pow(base, i);
+                }
+                return ans;
             }
             return ans;
-        }
-        return ans;
+
     }
 /**
  * This static function checks if the given String (g) is in a valid "number" format.
